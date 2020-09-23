@@ -33,13 +33,13 @@ int push(STACK *S, int num){
 
 }
 
-int pop(STACK *S, struct node *k){
+int pop(STACK *S, struct node **k){
     if(S->top == NULL){
         printf("stack-underflow\n");
         return 1;
     }
 
-    *k = *(S->top);
+    *k = S->top;
     S->top = S->top->next;
     return 0;
 
@@ -59,7 +59,7 @@ int main(){
 
     printf("inside: %d\n", S1.top->data);
 
-    int err1 = pop(&S1, k);
+    int err1 = pop(&S1, &k);
     printf("%d\n", k->data);
 
 }
