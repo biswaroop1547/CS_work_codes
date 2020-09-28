@@ -78,25 +78,30 @@ int delete2(Queue *q, int *m){ // space complexity will be constant as after del
 
 }
 
+// program to say insert 2 then 2 should be inserted two times, say 5 then 5 should be inserted 5 times etc.
 
-void reverse(Queue *q){
-    if(q->front == -1){
-        printf("Queue is empty\n");
-        return;
+void person_number_places_queue_insert(Queue *q, int k){
+    int err;
+    for(int i = 0; i < k; i++){
+        err = insert(q, k);
+        if(err == 1){
+            printf("Cannot insert anymore elements, queue is full.\n");
+            break;
+        }
     }
+}
 
-    int start = q->front;
-    int end = q->rear - 1;
-    int front_popped_element, err;
-    int stack[MAX];
-    for(int i = start; i <= end; i++){
-        err = delete(q, &front_popped_element);
-        stack[i] = front_popped_element;
-    }
+// program to say delete 2 then 2 should be deleted two times, say 5 then 5 should be deleted 5 times etc.
 
-    for(int i = end; i >= start; i--){
-        front_popped_element = stack[i];
-        err = insert(q, front_popped_element);
+void person_number_places_queue_front_delete(Queue *q){
+    int err, m;
+    int k = q->data[q->front];
+    for(int i = 0; i < k; i++){
+        err = delete(q, &m);
+        if(err == 1){
+            printf("Cannot delete anymore elements, queue is empty.\n");
+            break;
+        }
     }
 
 }
@@ -108,22 +113,24 @@ void display(Queue *q){
     printf("\n");
 }
 
-
 int main(){
     
     Queue q1;
     q1.front = q1.rear = -1; // setting up the queue.
 
-    int err = insert(&q1, 5);
-    err = insert(&q1, 2);
-    err = insert(&q1, 6);
-    err = insert(&q1, 1);
+    // int err = insert(&q1, 5);
     int deleted_element;
+    // int err1 = delete2(&q1, &deleted_element);
     // int err1 = delete(&q1, &deleted_element);
-    int err1 = delete2(&q1, &deleted_element);
-
-    printf("deleted element: %d\n", deleted_element);
-    reverse(&q1);
+    person_number_places_queue_insert(&q1, 5);
+    person_number_places_queue_insert(&q1, 6);
+    person_number_places_queue_insert(&q1, 4);
+    person_number_places_queue_front_delete(&q1);
+    person_number_places_queue_front_delete(&q1);
     display(&q1);
+    
+
+
+    // printf("deleted element: %d\n", deleted_element);
 }
 

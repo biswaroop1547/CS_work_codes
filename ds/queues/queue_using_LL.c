@@ -76,19 +76,58 @@ int delete2(Queue *q, struct node **deleted_node){
 }
 
 
+void reverse(Queue *q){
+    if(q->front == NULL){
+        printf("Queue is empty\n");
+        return;
+    }
+
+    struct node *start = q->front;
+    struct node *end = q->rear;
+    int err, size = 0;
+    struct node *deleted_node;
+    for(struct node *curr = q->front; curr != NULL; curr = curr->next){
+        size++;
+    }
+    int *stack = (int *)malloc(sizeof(int) * (size));
+
+    for(int i = 0; i < size; i++){
+        err = delete2(q, &deleted_node);
+        stack[i] = deleted_node->data;
+    }
+
+    for(int i = size - 1; i >= 0; i--){
+        err = insert(q, stack[i]);
+    }
+
+}
+
+
+void display(Queue *q){
+    for(struct node *i = q->front; i != NULL; i = i->next){
+        printf("%d\t", i->data);
+    }
+    printf("\n");
+}
+
+
 int main(){
     Queue q1;
     q1.front = q1.rear = NULL; // setting up the queue by pointing both tracking pointers to null.
     int err = insert(&q1, 5);
     err = insert(&q1, 69);
+    err = insert(&q1, 12);
+    err = insert(&q1, 88);
     int deleted_element;
     struct node *deleted_node;
     // err = delete(&q1, &deleted_element);
     // printf("deleted element: %d\n", deleted_element);
-    err = delete2(&q1, &deleted_node);
-    printf("deleted element: %d\n", deleted_node->data);
-    err = delete2(&q1, &deleted_node);
-    printf("deleted element: %d\n", deleted_node->data);
+    // err = delete2(&q1, &deleted_node);
+    // printf("deleted element: %d\n", deleted_node->data);
+    // err = delete2(&q1, &deleted_node);
+    // printf("deleted element: %d\n", deleted_node->data);
+    reverse(&q1);
+    display(&q1);
 
 
 }
