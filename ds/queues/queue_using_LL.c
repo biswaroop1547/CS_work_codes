@@ -76,7 +76,7 @@ int delete2(Queue *q, struct node **deleted_node){
 }
 
 
-void reverse(Queue *q){
+void reverse(Queue *q){ // to reverse a queue, by dequeing and pushing the elements to a stack and then popping them back at queue at last one by one.
     if(q->front == NULL){
         printf("Queue is empty\n");
         return;
