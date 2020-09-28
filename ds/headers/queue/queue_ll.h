@@ -1,3 +1,5 @@
+#pragma once
+
 #include<stdio.h>
 #include<stdlib.h>
 
@@ -36,7 +38,7 @@ int insert(Queue *q, int k){
 
 }
 
-int delete(Queue *q, int *m){
+int delete1(Queue *q, int *m){
     if(q->front == NULL){
         printf("Queue is empty\n");
         return 1;
@@ -109,24 +111,3 @@ void display(Queue *q){
     printf("\n");
 }
 
-
-int main(){
-    Queue q1;
-    q1.front = q1.rear = NULL; // setting up the queue by pointing both tracking pointers to null.
-    int err = insert(&q1, 5);
-    err = insert(&q1, 69);
-    err = insert(&q1, 12);
-    err = insert(&q1, 88);
-    int deleted_element;
-    struct node *deleted_node;
-    // err = delete(&q1, &deleted_element);
-    // printf("deleted element: %d\n", deleted_element);
-    // err = delete2(&q1, &deleted_node);
-    // printf("deleted element: %d\n", deleted_node->data);
-    // err = delete2(&q1, &deleted_node);
-    // printf("deleted element: %d\n", deleted_node->data);
-    reverse(&q1);
-    display(&q1);
-
-
-}
