@@ -103,7 +103,7 @@ void reverse(Queue *q){ // to reverse a queue, by dequeing and pushing the eleme
 }
 
 void display(Queue *q){
-    if(q->front == NULL){
+    if(q->rear == -1){
         printf("Queue is empty\n");
         return;
     }
