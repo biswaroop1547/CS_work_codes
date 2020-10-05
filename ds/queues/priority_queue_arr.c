@@ -118,6 +118,15 @@ int main(){
     sorted_insert(&q, 99, 4);
     sorted_insert(&q, -5, 5); 
 
-    display(&q);
+    int deleted_element, priority_element;
+    delete2(&q, &deleted_element, &priority_element);
+    printf("%d, %d\n", deleted_element, priority_element);
+    delete2(&q, &deleted_element, &priority_element);
+    printf("%d, %d\n", deleted_element, priority_element);
+    delete2(&q, &deleted_element, &priority_element);
+    printf("%d, %d\n", deleted_element, priority_element);
+
+
+    // display(&q);
 
 }
