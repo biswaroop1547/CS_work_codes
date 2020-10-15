@@ -23,7 +23,7 @@ int enqueue(C_QUEUE *q, int k){
 
     if(q->rear == NULL){ // if no node is present.
       q->rear = curr;
-      curr->next = curr;  
+      q->rear->next = curr;  
     }
 
     else{ // if one or more than one nodes is present.
@@ -51,16 +51,40 @@ int dequeue(C_QUEUE *q, int *m){
     else{ // if more than one node is present.
         *m = q->rear->data;
         struct node *ptr = q->rear->next;
-        q->rear = q->rear->next->next;
+        q->rear->next = q->rear->next->next;
         free(ptr);
     }
 
     return 0;
 }
 
+void display(C_QUEUE *q){
+    if(q->rear == NULL){
+        return;
+    }
+
+    struct node *ptr = q->rear->next;
+    for(ptr = q->rear->next; ptr->next != q->rear->next; ptr = ptr->next){ // to display the circular queue.
+        printf("%d\t", ptr->data);
+    }
+    printf("%d\n", ptr->data);
+}
+
 
 int main(){
 
     C_QUEUE q = {NULL};
+    enqueue(&q, 1);
+    enqueue(&q, 2);
+    enqueue(&q, 3);
+    enqueue(&q, 4);
+    printf("after enqueueing :\n");
+    display(&q);
 
+    int dequeued_element;
+    dequeue(&q, &dequeued_element);
+    dequeue(&q, &dequeued_element);
+
+    printf("after dequeueing :\n");
+    display(&q);
 }

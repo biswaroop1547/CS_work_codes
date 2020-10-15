@@ -110,7 +110,7 @@ void display(struct node *head){
     if(head == NULL){
         return;
     }
-    struct node *ptr;
+    struct node *ptr = head;
     for(ptr = head; ptr->next != head; ptr = ptr->next){
         printf("%d ", ptr->data);
     }
