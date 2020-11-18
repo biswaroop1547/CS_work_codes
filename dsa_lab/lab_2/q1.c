@@ -16,8 +16,8 @@ int main(){
             scanf("%d", &a[i][j]);
         }
     }
-
     printf("\n");
+    
     for(int i = 0; i < r; i++){
         for(int j = 0; j <= i; j++){
             // printf("%d, %d\n",i, j);

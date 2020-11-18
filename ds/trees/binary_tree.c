@@ -13,11 +13,27 @@ struct node *create(int k){
     return curr;
 }
 
+void display_preorder(struct node *root){
+    if(root != NULL){
+        printf("%d", root->data);
+        display_inorder(root->left);
+        display_inorder(root->right);
+    }
+}
+
 void display_inorder(struct node *root){
     if(root != NULL){
         display_inorder(root->left);
         printf("%d", root->data);
         display_inorder(root->right);
+    }
+}
+
+void display_postorder(struct node *root){
+    if(root != NULL){
+        display_inorder(root->left);
+        display_inorder(root->right);
+        printf("%d", root->data);
     }
 }
 

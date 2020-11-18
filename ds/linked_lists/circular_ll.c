@@ -103,8 +103,6 @@ void delete(struct node **head, int pos){
 };
 
 
-void reverse_display(struct node *head){};
-
 
 void display(struct node *head){
     if(head == NULL){
@@ -128,10 +126,10 @@ int main(){
     printf("Enter the elements:\n");
     create_ll(&head, n);
 
-    // int pos_insert, data_insert;
-    // printf("Enter position and data to enter:\n");
-    // scanf("%d %d", &pos_insert, &data_insert);
-    // insert(&head, data_insert, pos_insert);
+    int pos_insert, data_insert;
+    printf("Enter position and data to enter:\n");
+    scanf("%d %d", &pos_insert, &data_insert);
+    insert(&head, data_insert, pos_insert);
 
     int pos_delete;
     printf("Enter position to delete:\n");

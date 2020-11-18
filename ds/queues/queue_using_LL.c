@@ -117,15 +117,22 @@ int main(){
     err = insert(&q1, 69);
     err = insert(&q1, 12);
     err = insert(&q1, 88);
+    err = insert(&q1, 32);
+    err = insert(&q1, 8);
+
+    printf("Queue after inserting elements -\n");
+    display(&q1);
+
     int deleted_element;
     struct node *deleted_node;
-    // err = delete(&q1, &deleted_element);
-    // printf("deleted element: %d\n", deleted_element);
-    // err = delete2(&q1, &deleted_node);
-    // printf("deleted element: %d\n", deleted_node->data);
-    // err = delete2(&q1, &deleted_node);
-    // printf("deleted element: %d\n", deleted_node->data);
+    err = delete(&q1, &deleted_element);
+    printf("deleted element: %d\n", deleted_element);
+    err = delete2(&q1, &deleted_node);
+    printf("deleted element: %d\n", deleted_node->data);
+
     reverse(&q1);
+
+    printf("Queue after deleting elements -\n");
     display(&q1);
 
 
