@@ -88,6 +88,16 @@ void delete(struct node **head, int pos){
     }
 }
 
+void fun(struct node * start) { 
+    if (start==NULL) 
+        return; 
+    
+    if(start->next!=NULL) 
+        fun(start->next->next); 
+    
+    printf("%d",start->data);
+}
+
 int main(){
     struct node *curr;
     struct node *head = NULL;
@@ -100,17 +110,18 @@ int main(){
     printf("Enter the elements:\n");
     create_ll(&head, &tail, &curr, n); 
 
-    int pos_insert, data_insert;
-    printf("Enter position and data to enter:\n");
-    scanf("%d %d", &pos_insert, &data_insert);
-    insert(&head, data_insert, pos_insert);
+    // int pos_insert, data_insert;
+    // printf("Enter position and data to enter:\n");
+    // scanf("%d %d", &pos_insert, &data_insert);
+    // insert(&head, data_insert, pos_insert);
 
-    int pos_delete;
-    printf("Enter position to delete:\n");
-    scanf("%d", &pos_delete);
-    delete(&head, pos_delete);
+    // int pos_delete;
+    // printf("Enter position to delete:\n");
+    // scanf("%d", &pos_delete);
+    // delete(&head, pos_delete);
 
-    printf("The data stored in the linked list is:\n");
-    display(head);
+    // printf("The data stored in the linked list is:\n");
+    // display(head);
+    fun(head);
     
 }

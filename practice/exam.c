@@ -1,94 +1,101 @@
-#include<stdio.h>
-#include<stdlib.h>
-#define MAX 10
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node {
+    struct node* left;
+    char data;
+    struct node* right;
+};
+
+struct node_stack {
+    struct node* data;
+    struct node_stack* next;
+};
 
 typedef struct {
-    int data[MAX][2];
-    int top;
+    struct node_stack* top;
 } STACK;
 
-
-int push(STACK *S, int v, int not_exist){
-    if(S->top == MAX - 1){
-        printf("stack-overflow\n");
+int push(STACK* s, struct node* val) {
+    if (val == NULL) {
         return 1;
     }
-
-    S->top++;
-    S->data[S->top][0] = v;
-    if(not_exist != 1){
-        (S->data[S->top][1])++;
-    }
-    return 0;
-
-}
-
-int pop(STACK *S, int *k){
-    if(S->top == -1){
-        printf("stack-underflow\n");
+    struct node_stack* curr;
+    curr = (struct node_stack*)malloc(sizeof(struct node_stack));
+    if (curr == NULL) {
         return 1;
     }
-
-    *k = S->data[S->top][0];
-    S->top--;
+    curr->data = val;
+    curr->next = NULL;
+    curr->next = s->top;
+    s->top = curr;
     return 0;
 }
 
+int pop(STACK* s, struct node** del) {
+    if (s->top == NULL) {
+        return 1;
+    }
+    *del = s->top->data;
+    s->top = s->top->next;
+    return 0;
+}
 
-void insert(STACK *S, int v){
-    STACK S2;
-    S2.top = -1;
-    
-    int popped_element;
+int is_empty(STACK s) {
+    return s.top == NULL;
+}
 
-    while(1){
-        
-        if(S->top == -1){ // if the stack is empty
-            push(S, v);
-            break;
-        }
-
-        pop(S, &popped_element);
-        if(popped_element < v){
-            push(S, popped_element, 1);
-            push(S, v, 0);
-            break;
-        }
-
-        if(popped_element == v){
-            push(S, popped_element, 0);
-        }
-
-        else{
-            push(&S2, popped_element, 0);
+int is_operator(char ch) {
+    char OPERATORS[] = "+-*/^\0";
+    for (int i = 0; OPERATORS[i] != '\0'; ++i) {
+        if (ch == OPERATORS[i]) {
+            return 1;
         }
     }
+    return 0;
+}
 
-    while(S2.top != -1){
-        pop(&S2, &popped_element);
-        push(S, popped_element, 1);
+struct node* create_node(char val) {
+    struct node* curr = (struct node*)malloc(sizeof(struct node));
+    curr->data = val;
+    curr->left = curr->right = NULL;
+    return curr;
+}
+
+void prefix_expression(struct node* root) {
+    if (root != NULL) {
+        printf("%c ", root->data);
+        prefix_expression(root->left);
+        prefix_expression(root->right);
     }
 }
 
-void display(STACK *S){
-    while(S->top != -1){
-        int popped_element;
-        pop(S, &popped_element);
-        printf("%d ", popped_element);
+struct node* construct_tree(struct node* root, char* postfix) {
+    STACK s;
+    s.top = NULL;
+    struct node *curr, *op1, *op2;
+    int i = 0;
+    while (postfix[i] != '\0') {
+        curr = create_node(postfix[i]);
+        if (is_operator(postfix[i])) {
+            pop(&s, &op1);
+            pop(&s, &op2);
+            curr->right = op1;
+            curr->left = op2;
+        }
+        push(&s, curr);
+        ++i;
     }
+    pop(&s, &root);
+    return root;
+}
+
+int main() {
+    struct node* root = NULL;
+    char postfix[] = "ab/cde+f-g^/h*p/-k+";
+    root = construct_tree(root, postfix);
+    prefix_expression(root);
     printf("\n");
-}
-
-int main(){
-    STACK S1;
-    S1.top = -1;
-
-    int arr[] = {6, 5, 4, 3, 2, 1};
-    for(int i = 0; i < 6; i++){
-        // printf("done");
-        insert(&S1, arr[i]);
-    }
-
-    display(&S1);
-
+    
+    return 0;
 }
