@@ -33,7 +33,7 @@ int countSubsetSumMinDiff(int value[], int n, int diff){
     for(int i = 0; i < n; i++){
         sum += value[i];
     }
-    int s1_sum = (diff + sum ) / 2;
+    int s1_sum = (diff + sum + 1) / 2;
 
     return countSubsetSum(value, s1_sum, n);
 }

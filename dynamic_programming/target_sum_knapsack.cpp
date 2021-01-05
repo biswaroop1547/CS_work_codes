@@ -35,7 +35,7 @@ int targetSum(int value[], int n, int target){
     for(int i = 0; i < n; i++){
         arr_sum += value[i];
     }
-    int s1_sum = ( arr_sum + target ) / 2;
+    int s1_sum = ( arr_sum + target + 1) / 2;
     return countSubsetSum(value, s1_sum, n);
 }
 
