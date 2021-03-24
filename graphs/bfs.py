@@ -20,14 +20,24 @@ def bfs(s, graph):
                 if vertex not in level:
                     level[vertex] = curr_level
                     parent[vertex] = u
-                    print(vertex, end=' ')
+                    # print(vertex, end=' ')
                     next_vertex.append(vertex)
 
         vertex_queue = next_vertex
         curr_level += 1
     return level, parent
 
-level, parent = bfs('c', graph)
+def shortest_path(start, dest, graph):
+    level, parent = bfs(start, graph)
+    stack = []
+    path = []
+    while dest:
+        stack.append(dest)
+        dest = parent[dest]
 
-print("\nlevel : ", level)
-print("parent : ", parent)
+    while stack:
+        path.append(stack.pop())
+
+    return path
+
+print(shortest_path('c', 'f', graph))
